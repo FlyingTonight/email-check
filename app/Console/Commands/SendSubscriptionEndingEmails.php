@@ -1,20 +1,27 @@
 <?php
 
-namespace App\Console\Commands;
-
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Users;
+use Carbon\Carbon;
 
 class SendSubscriptionEndingEmails extends Command
 {
-    protected $signature = 'subscription-ending-emails:send';
-    protected $description = 'Send email notifications to users whose subscription is ending in three days';
+    protected $signature = 'email:subscription-ending';
+    protected $description = 'Send email notification to users whose subscription is ending soon';
 
     public function handle()
     {
-        $users = DB::table('users')->where('subscription_end_date', '<=', now()->addDays(3))->get();
+        $users = Users::where('subscription_end_date', '>=', Carbon::today()->addDays(1))
+                     ->where('subscription_end_date', '<=', Carbon::today()->addDays(3))
+                     ->get();
 
         foreach ($users as $user) {
-            Mail::to($user->email)->send(new SubscriptionEndingEmail($user));
+            Mail::send('emails.subscription-ending', ['username' => $user->name], function ($message) use ($user) {
+                $message->to($user->email)->subject('Subscription Ending Soon');
+            });
         }
+
+        $this->info('Subscription ending emails sent successfully!');
     }
 }

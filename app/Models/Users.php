@@ -32,6 +32,6 @@ class Users extends Model
      */
     public function confirmation()
     {
-        return $this->belongsTo(Confirmation::class);
+        return $this->hasOne(Confirmation::class, 'user_id', 'id');
     }
 }

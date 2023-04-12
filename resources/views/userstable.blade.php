@@ -23,35 +23,27 @@
 
           </tr>
         </thead>
-        @foreach ($users as $user )
-
-
-
-
         <tbody>
-          <tr>
-            <th scope="row">{{$user['id']}}</th>
-            <td>{{$user['username']}}</td>
-            <td>{{$user['email']}}</td>
-            <td>{{$user['password']}}</td>
-            <td>{{$user['subscription_end_date']}}</td>
+          @foreach ($users as $user )
+            <tr>
+                <th scope="row">{{$user['id']}}</th>
+                <td>{{$user['username']}}</td>
+                <td>{{$user['email']}}</td>
+                <td>{{$user['password']}}</td>
+                <td>{{$user['subscription_end_date']}}</td>
+                <td>
+                    @if ($user->confirmation)
+                        @if ($user->confirmation->confirmed = true)
+                            Confirmed
+                        @endif
+                    @else
+                        Not Confirmed
+                    @endif
+                </td>
 
-
-            <td>
-    @if ($user->confirmation)
-        @if ($user->confirmation->confirmed)
-            Confirmed
-        @else
-            Not Confirmed
-        @endif
-    @else
-        No Confirmation Record Found
-    @endif
-</td>
-
-          </tr>
+            </tr>
+          @endforeach
         </tbody>
-        @endforeach
       </table>
     </div>
     {{ $users->links() }}

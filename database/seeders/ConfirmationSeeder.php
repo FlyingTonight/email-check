@@ -15,6 +15,6 @@ class ConfirmationSeeder extends Seeder
      */
     public function run()
     {
-        Confirmation::factory()->count(100)->create();
+        Confirmation::factory()->count(1000)->create();
     }
 }

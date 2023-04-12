@@ -22,7 +22,7 @@ class UsersFactory extends Factory
         $dateString = fake()->date('Y-m-d');
         $date = Carbon::createFromFormat('Y-m-d', $dateString);
         return [
-            'username' => fake()->name(),
+            'username' => fake()->username(),
             'email' => fake()->unique()->safeEmail(),
             'password' => bcrypt(Str::random(8)),
             'subscription_end_date' => $date,
