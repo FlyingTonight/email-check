@@ -9,6 +9,7 @@ class Confirmation extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'UserID';
     protected $fillable = [
         'user_id',
         'confirmed',
@@ -18,8 +19,9 @@ class Confirmation extends Model
         'confirmed' => 'boolean',
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(Users::class);
+        return $this->hasOne(Users::class);
     }
+
 }

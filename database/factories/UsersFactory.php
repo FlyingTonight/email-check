@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 
 /**
@@ -23,9 +24,8 @@ class UsersFactory extends Factory
         return [
             'username' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'password' => fake()->password(),
+            'password' => bcrypt(Str::random(8)),
             'subscription_end_date' => $date,
-            // 'remember_token' => Str::random(10),
         ];
     }
 }

@@ -26,4 +26,12 @@ class Users extends Model
         'email_verified_at' => 'datetime',
         'subscription_end_date' => 'datetime',
     ];
+
+    /**
+     * Get the user that owns the phone.
+     */
+    public function confirmation()
+    {
+        return $this->belongsTo(Confirmation::class);
+    }
 }
